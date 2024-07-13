@@ -78,11 +78,22 @@ docker run -ti -v `pwd`:/mayhem harnesses /bin/bash
    `testsuite` directory, and the associated `Mayhemfile`
  * One docker image for all harnesses by default. Once your final image is
    greater than 10GB, then start considering multiple images.
-  * This template, by default, assumes your harness entrypoint function is
+ * This template, by default, assumes your harness entrypoint function is
     `LLVMFuzzerTestOneInput`. This was chosen for maximal compatability with
     Mayhem and raw AFL and libfuzzer. 
+  * If you *only* want to use libfuzzer, you don't need the driver.c file in
+    the template.  We structured the code this way to give optionality.
+  * 
+
 
 
 ## Further reading
 
-TODO
+ * [AFL++ driver template](https://github.com/AFLplusplus/AFLplusplus/blob/stable/utils/aflpp_driver/aflpp_driver.c)
+   is a more sophisticated (and complicated) driver that adds AFL-specific functionality.
+  * [afl_driver.cpp](https://chromium.googlesource.com/chromium/llvm-project/compiler-rt/lib/fuzzer.git/+/HEAD/afl/afl_driver.cpp)
+    is similar to AFL++ driver template, and provides glue between a libfuzzer
+    harnesses and AFL for google. 
+ * [FuzzDataProvider](https://github.com/llvm/llvm-project/blob/main/compiler-rt/include/fuzzer/FuzzedDataProvider.h)
+   is a C++ header for structure-aware fuzzing. Our template FuzzDatProvider.c
+   was inspired by this, but also supports C. 
