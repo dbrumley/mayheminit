@@ -11,7 +11,7 @@ under stress conditions.
  * Each harness directory have associated files for building your harness, a
    `testsuite` directory, and the associated `Mayhemfile`
  * One docker image for all harnesses by default. Once your final image is
-   >10GB, then start considering multiple images.
+   greater than 10GB, then start considering multiple images.
   * This template, by default, assumes your harness entrypoint function is
     `LLVMFuzzerTestOneInput`. This was chosen for maximal compatability with
     Mayhem and raw AFL and libfuzzer. 
