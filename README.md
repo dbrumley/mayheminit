@@ -4,24 +4,34 @@ This directory includes the harnesses for Mayhem analysis. Mayhem performs
 security and property-based testing, which makes sure your code works even
 under stress conditions. 
 
-## Recommendations
+A TLDR of the value is:
+  * Normal unit test: `assert(add(2,2) == 4)`
+  * Mayhem test: `assert(add(a,b) == add(b,a))` (oh, and that there isn't any
+    undefined behavior or safety problems)
 
- * Each harness has its own directory because the output test suite for each
-   harness may be unique.
- * Each harness directory have associated files for building your harness, a
-   `testsuite` directory, and the associated `Mayhemfile`
- * One docker image for all harnesses by default. Once your final image is
-   greater than 10GB, then start considering multiple images.
-  * This template, by default, assumes your harness entrypoint function is
-    `LLVMFuzzerTestOneInput`. This was chosen for maximal compatability with
-    Mayhem and raw AFL and libfuzzer. 
- 
+Under-the-hood, Mayhem:
+  * Supports a full CICD workflow, such as regression testing, triage,
+    diagnoses, and managing test suites.
+  * Runs patented symbolic execution to provide more comprehensive testing.
+  * Supports binary-only analysis, as well as OSS fuzzers like AFL, libfuzzer,
+    and hongfuzz.
+
+
 
 ## Quick Start
+
+We've set this up to give you a good starting point. You can rearrange files as
+suites your files, though see the next section for some battle-tested
+recommendations.
 
 ```bash
 cp -r 00_c_cpp_template harness1 # Copy the template to your own harness
 cd harness1 # switch to your harness; edit as you like
+
+################################################ 
+## Now, edit harness.c to call your own code. ##
+################################################
+
 make # build you harness. Works great with Mayhem.
 
 # Build with instrumentation. Even faster analysis! Requires afl-clang
@@ -61,9 +71,17 @@ docker run -ti -v `pwd`:/mayhem harnesses /bin/bash
 
 ```
 
-## Explanation
+## Recommendations
+ * Each harness has its own directory because the output test suite for each
+   harness may be unique.
+ * Each harness directory have associated files for building your harness, a
+   `testsuite` directory, and the associated `Mayhemfile`
+ * One docker image for all harnesses by default. Once your final image is
+   greater than 10GB, then start considering multiple images.
+  * This template, by default, assumes your harness entrypoint function is
+    `LLVMFuzzerTestOneInput`. This was chosen for maximal compatability with
+    Mayhem and raw AFL and libfuzzer. 
 
-TODO
 
 ## Further reading
 
