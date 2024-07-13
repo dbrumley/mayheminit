@@ -6,8 +6,8 @@ under stress conditions.
 
 A TLDR of the value is:
   * Normal unit test: `assert(add(2,2) == 4)`
-  * Mayhem test: `assert(add(a,b) == add(b,a))` (oh, and that there isn't any
-    undefined behavior or safety problems)
+  * Mayhem test: checking that you don't have exploitable vulnerabilities AND checking the more general requirement
+    `assert(add(a,b) == add(b,a))`. 
 
 Under-the-hood, Mayhem:
   * Supports a full CICD workflow, such as regression testing, triage,
