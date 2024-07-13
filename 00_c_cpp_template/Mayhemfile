@@ -1,0 +1,5 @@
+project: awesome_project
+target: harness1
+image: harnesses
+cmds:
+  - cmd: /mayhem/myharness/harness @@
